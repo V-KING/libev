@@ -276,7 +276,7 @@ extern "C" {
 #define DNS_OPTION_MISC 4
 #define DNS_OPTIONS_ALL 7
 
-/* 
+/*
  * The callback that contains the results from a lookup.
  * - type is either DNS_IPv4_A or DNS_PTR or DNS_IPv6_AAAA
  * - count contains the number of addresses of form type
@@ -322,14 +322,14 @@ void evdns_set_log_fn(evdns_debug_log_fn_type fn);
  */
 
 struct evdns_server_request {
-	int flags;
-	int nquestions;
-	struct evdns_server_question **questions;
+    int flags;
+    int nquestions;
+    struct evdns_server_question **questions;
 };
 struct evdns_server_question {
-	int type;
-	int class;
-	char name[1];
+    int type;
+    int class;
+    char name[1];
 };
 typedef void (*evdns_request_callback_fn_type)(struct evdns_server_request *, void *);
 #define EVDNS_ANSWER_SECTION 0

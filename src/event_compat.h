@@ -68,10 +68,10 @@ struct {								\
  * query argument parsing.
  */
 struct evkeyval {
-	TAILQ_ENTRY(evkeyval) next;
+    TAILQ_ENTRY(evkeyval) next;
 
-	char *key;
-	char *value;
+    char *key;
+    char *value;
 };
 
 #ifdef _EVENT_DEFINED_TQENTRY
@@ -89,27 +89,27 @@ TAILQ_HEAD (evkeyvalq, evkeyval);
 #endif /* _EVENT_DEFINED_RBENTRY */
 
 struct eventop {
-	char *name;
-	void *(*init)(struct event_base *);
-	int (*add)(void *, struct event *);
-	int (*del)(void *, struct event *);
-	int (*recalc)(struct event_base *, void *, int);
-	int (*dispatch)(struct event_base *, void *, struct timeval *);
-	void (*dealloc)(struct event_base *, void *);
+    char *name;
+    void *(*init)(struct event_base *);
+    int (*add)(void *, struct event *);
+    int (*del)(void *, struct event *);
+    int (*recalc)(struct event_base *, void *, int);
+    int (*dispatch)(struct event_base *, void *, struct timeval *);
+    void (*dealloc)(struct event_base *, void *);
 };
 
 /* These functions deal with buffering input and output */
 
 struct evbuffer {
-	u_char *buffer;
-	u_char *orig_buffer;
+    u_char *buffer;
+    u_char *orig_buffer;
 
-	size_t misalign;
-	size_t totallen;
-	size_t off;
+    size_t misalign;
+    size_t totallen;
+    size_t off;
 
-	void (*cb)(struct evbuffer *, size_t, size_t, void *);
-	void *cbarg;
+    void (*cb)(struct evbuffer *, size_t, size_t, void *);
+    void *cbarg;
 };
 
 /* Just for error reporting - use other constants otherwise */
@@ -124,33 +124,33 @@ typedef void (*evbuffercb)(struct bufferevent *, void *);
 typedef void (*everrorcb)(struct bufferevent *, short what, void *);
 
 struct event_watermark {
-	size_t low;
-	size_t high;
+    size_t low;
+    size_t high;
 };
 
 struct bufferevent {
-	struct event ev_read;
-	struct event ev_write;
+    struct event ev_read;
+    struct event ev_write;
 
-	struct evbuffer *input;
-	struct evbuffer *output;
+    struct evbuffer *input;
+    struct evbuffer *output;
 
-	struct event_watermark wm_read;
-	struct event_watermark wm_write;
+    struct event_watermark wm_read;
+    struct event_watermark wm_write;
 
-	evbuffercb readcb;
-	evbuffercb writecb;
-	everrorcb errorcb;
-	void *cbarg;
+    evbuffercb readcb;
+    evbuffercb writecb;
+    everrorcb errorcb;
+    void *cbarg;
 
-	int timeout_read;	/* in seconds */
-	int timeout_write;	/* in seconds */
+    int timeout_read;	/* in seconds */
+    int timeout_write;	/* in seconds */
 
-	short enabled;	/* events that are currently enabled */
+    short enabled;	/* events that are currently enabled */
 };
 
 struct bufferevent *bufferevent_new(int fd,
-    evbuffercb readcb, evbuffercb writecb, everrorcb errorcb, void *cbarg);
+                                    evbuffercb readcb, evbuffercb writecb, everrorcb errorcb, void *cbarg);
 int bufferevent_base_set(struct event_base *base, struct bufferevent *bufev);
 int bufferevent_priority_set(struct bufferevent *bufev, int pri);
 void bufferevent_free(struct bufferevent *bufev);
@@ -160,7 +160,7 @@ size_t bufferevent_read(struct bufferevent *bufev, void *data, size_t size);
 int bufferevent_enable(struct bufferevent *bufev, short event);
 int bufferevent_disable(struct bufferevent *bufev, short event);
 void bufferevent_settimeout(struct bufferevent *bufev,
-    int timeout_read, int timeout_write);
+                            int timeout_read, int timeout_write);
 
 #define EVBUFFER_LENGTH(x)	(x)->off
 #define EVBUFFER_DATA(x)	(x)->buffer
@@ -191,17 +191,17 @@ void evbuffer_setcb(struct evbuffer *, void (*)(struct evbuffer *, size_t, size_
 void evtag_init(void);
 
 void evtag_marshal(struct evbuffer *evbuf, uint32_t tag, const void *data,
-    uint32_t len);
+                   uint32_t len);
 
 void encode_int(struct evbuffer *evbuf, uint32_t number);
 
 void evtag_marshal_int(struct evbuffer *evbuf, uint32_t tag, uint32_t integer);
 
 void evtag_marshal_string(struct evbuffer *buf, uint32_t tag,
-    const char *string);
+                          const char *string);
 
 void evtag_marshal_timeval(struct evbuffer *evbuf, uint32_t tag,
-    struct timeval *tv);
+                           struct timeval *tv);
 
 int evtag_unmarshal(struct evbuffer *src, uint32_t *ptag, struct evbuffer *dst);
 int evtag_peek(struct evbuffer *evbuf, uint32_t *ptag);
@@ -210,16 +210,16 @@ int evtag_payload_length(struct evbuffer *evbuf, uint32_t *plength);
 int evtag_consume(struct evbuffer *evbuf);
 
 int evtag_unmarshal_int(struct evbuffer *evbuf, uint32_t need_tag,
-    uint32_t *pinteger);
+                        uint32_t *pinteger);
 
 int evtag_unmarshal_fixed(struct evbuffer *src, uint32_t need_tag, void *data,
-    size_t len);
+                          size_t len);
 
 int evtag_unmarshal_string(struct evbuffer *evbuf, uint32_t need_tag,
-    char **pstring);
+                           char **pstring);
 
 int evtag_unmarshal_timeval(struct evbuffer *evbuf, uint32_t need_tag,
-    struct timeval *ptv);
+                            struct timeval *ptv);
 
 #ifdef __cplusplus
 }

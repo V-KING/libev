@@ -77,24 +77,23 @@ struct event_base;
 
 typedef void (*event_callback_fn)(int, short, void *);
 
-struct event
-{
-  /* libev watchers we map onto */
-  union {
-    struct ev_io io;
-    struct ev_signal sig;
-  } iosig;
-  struct ev_timer to;
+struct event {
+    /* libev watchers we map onto */
+    union {
+        struct ev_io io;
+        struct ev_signal sig;
+    } iosig;
+    struct ev_timer to;
 
-  /* compatibility slots */
-  struct event_base *ev_base;
-  event_callback_fn ev_callback;
-  void *ev_arg;
-  int ev_fd;
-  int ev_pri;
-  int ev_res;
-  int ev_flags;
-  short ev_events;
+    /* compatibility slots */
+    struct event_base *ev_base;
+    event_callback_fn ev_callback;
+    void *ev_arg;
+    int ev_fd;
+    int ev_pri;
+    int ev_res;
+    int ev_flags;
+    short ev_events;
 };
 
 event_callback_fn event_get_callback (const struct event *ev);
