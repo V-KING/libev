@@ -22,7 +22,7 @@
 ###############################################################################
 
 # !!!=== cross compile...
-CROSS_COMPILE ?= 
+CROSS_COMPILE ?=  /home/fangy/arm-linux-gcc-3.4.1/usr/local/arm/3.4.1/bin/arm-linux-
 
 CC  = $(CROSS_COMPILE)gcc
 CXX = $(CROSS_COMPILE)g++
@@ -43,7 +43,7 @@ target = client
 
 # !!!===
 # compile flags
-CFLAGS += -Wall -Wfatal-errors
+CFLAGS += -Wall -g
 
 #****************************************************************************
 # debug can be set to y to include debugging info, or n otherwise

@@ -26,7 +26,6 @@ static void timeout_cb (EV_P_ ev_timer *w, int revents) {
     puts ("timeout");
     //关闭最早的一个还在运行的ev_run
     //ev_break (EV_A_ EVBREAK_ONE);
-    w->
 }
 
 

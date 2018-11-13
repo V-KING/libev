@@ -1521,7 +1521,7 @@ ecb_binary16_to_float (uint16_t x) {
  * alternatively, you can remove this #error and link against libpthread,
  * which will then provide the memory fences.
  */
-# error "memory fences not defined for your architecture, please report"
+//# error "memory fences not defined for your architecture, please report"
 #endif
 
 #ifndef ECB_MEMORY_FENCE
